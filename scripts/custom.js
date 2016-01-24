@@ -7,14 +7,14 @@ $(window).load(function() { // makes sure the whole site is loaded
 
 //------------------------------------------------------------------------
 //						PRELOADER SCRIPT
-//------------------------------------------------------------------------   
+//------------------------------------------------------------------------
     $('#preloader').delay(400).fadeOut('slow'); // will fade out the white DIV that covers the website.
     $('#preloader .inner').fadeOut(); // will first fade out the loading animation
 
 
 //------------------------------------------------------------------------
 //						WOW ANIMATION SETTINGS
-//------------------------------------------------------------------------ 	
+//------------------------------------------------------------------------
 	var wow = new WOW({
     	offset:100,        // distance to the element when triggering the animation (default is 0)
     	mobile:false       // trigger animations on mobile devices (default is true)
@@ -22,10 +22,10 @@ $(window).load(function() { // makes sure the whole site is loaded
 	wow.init();
 
 
-	
+
 //------------------------------------------------------------------------
 //						STELLAR (PARALLAX) SETTINGS
-//------------------------------------------------------------------------ 	
+//------------------------------------------------------------------------
 if(!(navigator.userAgent.match(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile/i))) {
 	$.stellar({
 		horizontalScrolling: false,
@@ -37,7 +37,7 @@ if(!(navigator.userAgent.match(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile/i))
 
 //------------------------------------------------------------------------
 //						NAVBAR SLIDE SCRIPT
-//------------------------------------------------------------------------ 		
+//------------------------------------------------------------------------
 	$(window).scroll(function () {
         if ($(window).scrollTop() > $("nav").height()) {
             $("nav.navbar-slide").addClass("show-menu");
@@ -48,32 +48,53 @@ if(!(navigator.userAgent.match(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile/i))
 			$(".navbar-slide .navbar-toggle").addClass("collapsed");
         }
     });
-	
+
 //------------------------------------------------------------------------
 //						NAVBAR HIDE ON CLICK (COLLAPSED) SCRIPT
-//------------------------------------------------------------------------ 		
-    $('.nav a').on('click', function(){ 
+//------------------------------------------------------------------------
+    $('.nav a').on('click', function(){
         if($('.navbar-toggle').css('display') !='none'){
             $(".navbar-toggle").click()
         }
     });
-	
+
 })
 
 
 
 
 $(document).ready(function(){
-	
+
 	"use strict";
 
 
-	
+
+	//------------------------------------------------------------------------
+	//						VIDEO BACKGROUND SETTINGS
+	//------------------------------------------------------------------------
+		$(function() {
+	    	var BV = new $.BigVideo({container: $('.block-video-bg'), useFlashForFirefox:false});
+	    	BV.init();
+			if(navigator.userAgent.match(/iPhone|iPad|iPod|Android|BlackBerry|IEMobile/i)) {
+	                BV.show('images/video_gag.jpg');
+	        } else{
+				if (!!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0) {
+					BV.show('video_bg.ogv', {doLoop:true, ambient:true});
+				} else{
+					BV.show('video_bg.mp4', {doLoop:true, ambient:true, altSource:'video_bg.ogv'});
+				}
+				BV.getPlayer().on('loadedmetadata', function(){
+	   	 			$('#big-video-wrap video').fadeIn('slow');
+				});
+			}
+		});
+
+		
 //------------------------------------------------------------------------
 //						ANCHOR SMOOTHSCROLL SETTINGS
 //------------------------------------------------------------------------
 	$('a.goto, .navbar .nav a').smoothScroll({speed: 1200});
-	
+
 
 
 
@@ -86,8 +107,8 @@ $(document).ready(function(){
 	});
 
 
-	
-	
+
+
 //------------------------------------------------------------------------
 //						INTRO SUPERSLIDER SETTINGS
 //------------------------------------------------------------------------
@@ -99,9 +120,9 @@ $(document).ready(function(){
 		inherit_width_from:".intro-block"
 	});
 
-	
-	
-	
+
+
+
 //------------------------------------------------------------------------
 //						TESTIMONIALS SLIDER SETTINGS
 //------------------------------------------------------------------------
@@ -114,10 +135,10 @@ $(document).ready(function(){
 
 
 
-//------------------------------------------------------------------------	
+//------------------------------------------------------------------------
 //                    MAGNIFIC POPUP(LIGHTBOX) SETTINGS
-//------------------------------------------------------------------------  
-	          
+//------------------------------------------------------------------------
+
     $('#screenshots-slider').magnificPopup({
         delegate: 'a',
         type: 'image',
@@ -127,10 +148,10 @@ $(document).ready(function(){
     });
 
 
-	
+
 //------------------------------------------------------------------------
 //					SUBSCRIBE FORM VALIDATION'S SETTINGS
-//------------------------------------------------------------------------          
+//------------------------------------------------------------------------
     $('#subscribe_form').validate({
         onfocusout: false,
         onkeyup: false,
@@ -149,29 +170,29 @@ $(document).ready(function(){
                 email: "Please, enter a valid email"
             }
         },
-					
+
         highlight: function(element) {
             $(element)
-        },                    
-					
+        },
+
         success: function(element) {
             element
             .text('').addClass('valid')
         }
-    }); 
-	
+    });
 
-		
-				
+
+
+
 //------------------------------------------------------------------------------------
 //						SUBSCRIBE FORM MAILCHIMP INTEGRATIONS SCRIPT
-//------------------------------------------------------------------------------------		
+//------------------------------------------------------------------------------------
     $('#subscribe_form').submit(function() {
         $('.error').hide();
         $('.error').fadeIn();
         // submit the form
         if($(this).valid()){
-            $('#subscribe_submit').button('loading'); 
+            $('#subscribe_submit').button('loading');
             var action = $(this).attr('action');
             $.ajax({
                 url: action,
@@ -181,31 +202,31 @@ $(document).ready(function(){
                 },
                 success: function(data) {
                     $('#subscribe_submit').button('reset');
-					
+
 					//Use modal popups to display messages
 					$('#modalMessage .modal-title').html('<i class="icon icon-envelope-open"></i>' + data);
 					$('#modalMessage').modal('show');
-					
+
                 },
                 error: function() {
                     $('#subscribe_submit').button('reset');
-					
+
 					//Use modal popups to display messages
 					$('#modalMessage .modal-title').html('<i class="icon icon-ban"></i>Oops!<br>Something went wrong!');
 					$('#modalMessage').modal('show');
-					
+
                 }
             });
         }
-        return false; 
+        return false;
     });
-	  
-	  
-	  
-	  
+
+
+
+
 //------------------------------------------------------------------------------------
 //						CONTACT FORM VALIDATION'S SETTINGS
-//------------------------------------------------------------------------------------		  
+//------------------------------------------------------------------------------------
     $('#contact_form').validate({
         onfocusout: false,
         onkeyup: false,
@@ -228,29 +249,29 @@ $(document).ready(function(){
                 email: "Please, enter a valid email"
             }
         },
-					
+
         highlight: function(element) {
             $(element)
             .text('').addClass('error')
-        },                    
-					
+        },
+
         success: function(element) {
             element
             .text('').addClass('valid')
         }
-    });   
+    });
 
 
 
 
 //------------------------------------------------------------------------------------
 //								CONTACT FORM SCRIPT
-//------------------------------------------------------------------------------------	
-	
+//------------------------------------------------------------------------------------
+
     $('#contact_form').submit(function() {
         // submit the form
         if($(this).valid()){
-            $('#contact_submit').button('loading'); 
+            $('#contact_submit').button('loading');
             var action = $(this).attr('action');
             $.ajax({
                 url: action,
@@ -263,7 +284,7 @@ $(document).ready(function(){
                 success: function() {
                     $('#contact_submit').button('reset');
 					$('#modalContact').modal('hide');
-					
+
 					//Use modal popups to display messages
 					$('#modalMessage .modal-title').html('<i class="icon icon-envelope-open"></i>Well done!<br>Your message has been successfully sent!');
 					$('#modalMessage').modal('show');
@@ -271,7 +292,7 @@ $(document).ready(function(){
                 error: function() {
                     $('#contact_submit').button('reset');
 					$('#modalContact').modal('hide');
-					
+
 					//Use modal popups to display messages
 					$('#modalMessage .modal-title').html('<i class="icon icon-ban"></i>Oops!<br>Something went wrong!');
 					$('#modalMessage').modal('show');
@@ -280,9 +301,9 @@ $(document).ready(function(){
         } else {
             $('#contact_submit').button('reset')
         }
-        return false; 
-    });	    
-	  
-	  
+        return false;
+    });
+
+
 
 });

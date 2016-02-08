@@ -1,16 +1,16 @@
 //------------------------------------------------------------------------------------
 //								GOOGLE MAP SETTINGS
-//------------------------------------------------------------------------------------		
+//------------------------------------------------------------------------------------
 
 
-$(document).ready(function(){	
+$(document).ready(function(){
 	"use strict";
-	
-	var map;		
+
+	var map;
 	var MY_MAPTYPE_ID = 'custom_style';
-				
+
 	function initialize() {
-				
+
 		var featureOpts = [
 			{
 				stylers: [
@@ -23,6 +23,7 @@ $(document).ready(function(){
 			},
 			{
 				elementType: 'labels',
+
 				stylers: [
 					{ visibility: 'on' }
 				]
@@ -30,11 +31,11 @@ $(document).ready(function(){
 			{
 				featureType: 'water',
 				stylers: [
-					{ color: '#dee8ff' }
+					{ color: 'red' }
 				]
 			}
 		];
-				
+
 		var mapOptions = {
 			zoom: 14,
 			scrollwheel: false,
@@ -48,34 +49,43 @@ $(document).ready(function(){
 			},
 			mapTypeId: MY_MAPTYPE_ID
 		};
-				
+
 		map = new google.maps.Map(document.getElementById('canvas-map'),mapOptions);
-		
+
 		var image = new google.maps.MarkerImage("images/point.png",
         // This marker is 20 pixels wide by 32 pixels tall.
-        null, 
+        null,
         // The origin for this image is 0,0.
         new google.maps.Point(0,0),
         // The anchor for this image is the base of the flagpole at 0,32.
         new google.maps.Point(25,60)
     );
-		
+
 		var myLatLng = new google.maps.LatLng(33.978, -118.1);
-		var beachMarker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			icon: image
-		});
+
+
+var marker15 = new MarkerWithLabel({
+	position: myLatLng,
+	draggable: false,
+	raiseOnDrag: false,
+	map: map,
+	labelContent: "$120/hr",
+	labelAnchor: new google.maps.Point(22, 0),
+	labelClass: "labels", // the CSS class for the label
+	labelStyle: {opacity: 0.75},
+	icon: 'http://maps.google.com/mapfiles/ms/icons/hospitals.png'
+});
+
+
 		var styledMapOptions = {
 			name: 'Custom Style'
 		};
-				
+
 		var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
-				
+
 		map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 	}
-				
+
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 });
-	
